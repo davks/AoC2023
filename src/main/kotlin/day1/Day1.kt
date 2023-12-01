@@ -58,16 +58,38 @@ class Day1(val fileName: String) {
         puzzleInput = newInput
     }
 
+//    private fun replaceNumber(line: String): String {
+//        return line
+//            .replace("one", "o1ne", true)
+//            .replace("two", "t2wo", true)
+//            .replace("three", "t3hree", true)
+//            .replace("four", "f4our", true)
+//            .replace("five", "f5ive", true)
+//            .replace("six", "s6ix", true)
+//            .replace("seven", "s7even", true)
+//            .replace("eight", "e8ight", true)
+//            .replace("nine", "n9ine", true)
+//    }
+
     private fun replaceNumber(line: String): String {
-        return line
-            .replace("one", "o1ne", true)
-            .replace("two", "t2wo", true)
-            .replace("three", "t3hree", true)
-            .replace("four", "f4our", true)
-            .replace("five", "f5ive", true)
-            .replace("six", "s6ix", true)
-            .replace("seven", "s7even", true)
-            .replace("eight", "e8ight", true)
-            .replace("nine", "n9ine", true)
+        val numbers = listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
+        val first = line.findAnyOf(numbers)?.second?.changeToDigit()
+        val last = line.findLastAnyOf(numbers)?.second?.changeToDigit()
+        return "$first$last"
+    }
+
+    private fun String.changeToDigit(): String {
+        return when (this) {
+            "one" -> "1"
+            "two" -> "2"
+            "three" -> "3"
+            "four" -> "4"
+            "five" -> "5"
+            "six" -> "6"
+            "seven" -> "7"
+            "eight" -> "8"
+            "nine" -> "9"
+            else -> this
+        }
     }
 }
