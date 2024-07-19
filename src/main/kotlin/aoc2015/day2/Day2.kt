@@ -10,7 +10,9 @@ fun main() {
     println(doFirst4(lines))
     println(doFirst5(lines))
     println(doFirst6(lines))
-    doSecond(lines)
+    println(doSecond(lines))
+    println(doSecond2(lines))
+    println(doSecond3(lines))
 }
 
 fun doFirst(lines: List<String>): Int {
@@ -47,12 +49,14 @@ tailrec fun doFirst3(lines: List<String>, result: Int = 0): Int {
 }
 
 fun doFirst4(lines: List<String>): Int = lines
+    .asSequence()
     .map { line -> line.split("x").map { it.toInt() } }
     .map { line -> intArrayOf(line[0] * line[1], line[0] * line[2], line[1] * line[2]) }
     .runningFold(0) { _, line -> 2 * line.sum() + line.min() }
     .sum()
 
 fun doFirst5(lines: List<String>): Int = lines
+    .asSequence()
     .map { line -> line.split("x") }
     .map { line ->
         intArrayOf(
@@ -63,10 +67,31 @@ fun doFirst5(lines: List<String>): Int = lines
     }.sumOf { line -> 2 * line.sum() + line.min() }
 
 fun doFirst6(lines: List<String>): Int = lines
+    .asSequence()
     .map { line -> line.split("x").map { it.toInt() } }
     .map { line -> line.let { (a, b, c) -> intArrayOf(a * b, a * c, b * c) } }
     .sumOf { line -> 2 * line.sum() + line.min() }
 
-fun doSecond(text: List<String>) {
+fun doSecond(lines: List<String>): Int {
+    var result = 0
+    for (line in lines) {
+        val (a, b, c) = line.split("x").map { it.toInt() }.sorted()
+        result += (a + a + b + b) + (a * b * c)
+    }
 
+    return result
+}
+
+fun doSecond2(lines: List<String>): Int = lines
+    .asSequence()
+    .map { line -> line.split('x').map { it.toInt() }.sorted() }
+    .sumOf {line -> line.let { (a, b, c) -> (a + a + b + b) + (a * b * c) } }
+
+tailrec fun doSecond3(lines: List<String>, result: Int = 0): Int {
+    if (lines.isEmpty()) return result
+
+    val (a, b, c) = lines.first().split('x').map { it.toInt() }.sorted()
+    println(2 * minOf(2, 4, 3))
+
+    return doSecond3(lines.drop(1), result + (a + a + b + b) + (a * b * c))
 }
