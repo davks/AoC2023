@@ -4,20 +4,20 @@ import java.io.File
 
 fun main() {
     val text = File("src/main/kotlin/aoc2015/day3/input.txt").readText() //2081, 2341
-//    println(doFirst(text))
-//    println(doFirst2(text.split("").toList()))
-//    println(doFirst3(text.split("").toList()))
-//
-//    val doFirst4 = DoFirst4(text.split("").toList())
-//    println(doFirst4.findNumberOfHouses())
-//
-//    println(doFirst5(text))
-//    println(doFirst6(text))
+    println(doFirst(text))
+    println(doFirst2(text.split("").toList()))
+    println(doFirst3(text.split("").toList()))
+
+    val doFirst4 = DoFirst4(text.split("").toList())
+    println(doFirst4.findNumberOfHouses())
+
+    println(doFirst5(text))
+    println(doFirst6(text))
 
     println(doSecond(text))
 }
 
-fun doFirst(text: String): Int {
+private fun doFirst(text: String): Int {
     val houses = mutableSetOf<String>()
     val housesArray = text.split("")
 
@@ -37,7 +37,7 @@ fun doFirst(text: String): Int {
     return houses.size
 }
 
-tailrec fun doFirst2(housesList: List<String>, x: Int = 0, y: Int = 0, houses: MutableSet<String> = mutableSetOf()): Int {
+private tailrec fun doFirst2(housesList: List<String>, x: Int = 0, y: Int = 0, houses: MutableSet<String> = mutableSetOf()): Int {
     if (housesList.isEmpty()) return houses.size
 
     var x = x
@@ -56,7 +56,7 @@ tailrec fun doFirst2(housesList: List<String>, x: Int = 0, y: Int = 0, houses: M
     return doFirst2(housesList.drop(1), x, y, houses)
 }
 
-tailrec fun doFirst3(housesList: List<String>, xy: String = "0.0", houses: MutableSet<String> = mutableSetOf()): Int {
+private tailrec fun doFirst3(housesList: List<String>, xy: String = "0.0", houses: MutableSet<String> = mutableSetOf()): Int {
     if (housesList.isEmpty()) return houses.size
 
     var (x, y) = xy.split(".").map { it.toInt() }
@@ -102,7 +102,7 @@ class DoFirst4(private val housesArray: List<String>) {
     }
 }
 
-fun doFirst5(text: String): Int = text.asSequence()
+private fun doFirst5(text: String): Int = text.asSequence()
     .runningFold(Pair(0,0)) { xy, house ->
         when (house) {
             '^' -> xy.first to xy.second + 1
@@ -114,7 +114,7 @@ fun doFirst5(text: String): Int = text.asSequence()
     .distinct()
     .count()
 
-fun doFirst6(text: String): Int = text.asSequence()
+private fun doFirst6(text: String): Int = text.asSequence()
     .runningFold(0 to 0) { (x, y), house ->
         when (house) {
             '^' -> x to y + 1
@@ -126,14 +126,14 @@ fun doFirst6(text: String): Int = text.asSequence()
     .distinct()
     .count()
 
-fun doSecond(text: String): Int {
+private fun doSecond(text: String): Int {
     val santaOne = text.filterIndexed { index, _ -> index % 2 == 1 }
     val santaTwo = text.filterIndexed { index, _ -> index % 2 == 0 }
 
     return (getHouses(santaOne) + getHouses(santaTwo)).size
 }
 
-fun getHouses(text: String) = text.asSequence()
+private fun getHouses(text: String) = text.asSequence()
     .runningFold(0 to 0) { (x, y), house ->
         when (house) {
             '^' -> x to y + 1
@@ -144,7 +144,7 @@ fun getHouses(text: String) = text.asSequence()
     }
     .toSet()
 
-fun getHouses(housesArray: List<String>): Set<String> {
+private fun getHouses(housesArray: List<String>): Set<String> {
     val houses = mutableSetOf<String>()
 
     var x: Int = 0
