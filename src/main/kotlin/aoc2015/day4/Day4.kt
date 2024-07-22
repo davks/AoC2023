@@ -11,6 +11,7 @@ fun main() {
     println(doFirst2("iwrupvqb", 5))
     println(doFirst3("iwrupvqb", 5))
     println(doFirst4("iwrupvqb", 5))
+    println(doFirst5("iwrupvqb", 5))
 }
 
 private fun doFirst(key: String, numberOfZerosInHash: Int): String {
@@ -52,4 +53,14 @@ private fun doFirst4(key: String, numberOfZerosInHash: Int): String = (0..Int.MA
         val hash = "${key}${numericKey}".md5()
         hash.startsWith(0.padStart(numberOfZerosInHash))
     }
+    .toString()
+
+private fun doFirst5(key: String, numberOfZerosInHash: Int): String = (0..Int.MAX_VALUE)
+    .asSequence()
+    .filter { number ->
+        val numericKey = number.padStart(6)
+        val hash = "${key}${numericKey}".md5()
+        hash.startsWith(0.padStart(numberOfZerosInHash))
+    }
+    .first()
     .toString()
