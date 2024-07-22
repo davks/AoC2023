@@ -16,3 +16,10 @@ fun <T> Sequence<T>.takeUntil(predicate: (T) -> Boolean): Sequence<T> = sequence
         yield(item)
     }
 }
+
+fun <T> Sequence<T>.takeIncluding(predicate: (T) -> Boolean): Sequence<T> = sequence {
+    for (item in this@takeIncluding) {
+        yield(item)
+        if (predicate(item)) break
+    }
+}
