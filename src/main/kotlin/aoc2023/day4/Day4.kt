@@ -10,7 +10,7 @@ fun main() {
     doSecond(puzzleInput)
 }
 
-fun doFirst(puzzleInput: List<String>) {
+private fun doFirst(puzzleInput: List<String>) {
     val result = mutableListOf<Int>()
     puzzleInput.forEach {row ->
         val (left, right) = row.split(":")[1].split("|")

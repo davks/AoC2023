@@ -10,7 +10,7 @@ fun main() {
     doSecond(puzzleInput)
 }
 
-fun doFirst(puzzleInput: List<String>) {
+private fun doFirst(puzzleInput: List<String>) {
     val possibleGames = mutableListOf<Int>()
 
     for (line in puzzleInput) {

@@ -74,7 +74,7 @@ private tailrec fun doFirst3(housesList: List<String>, xy: String = "0.0", house
     return doFirst3(housesList.drop(1), "${x}.${y}", houses)
 }
 
-class DoFirst4(private val housesArray: List<String>) {
+private class DoFirst4(private val housesArray: List<String>) {
     private data class XY(var x: Int, var y: Int)
 
     private val xy = XY(0, 0)
