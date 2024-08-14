@@ -20,7 +20,7 @@ import java.io.File
 
 fun main() {
     val day9 = File("src/main/kotlin/aoc2015/day9/input-test.txt").readLines()
-    println(doFirst3(day9))
+    println(doFirst4(day9))
     println(doSecond(day9))
 }
 
@@ -62,6 +62,19 @@ private fun doFirst3(list: List<String>): Int {
     return routes.minOf {
         it
             .zipWithNext { fromCity, toCity -> distances[fromCity]?.get(toCity) ?: 0 }
+            .onEach { println(it) }
+            .sum()
+    }
+}
+
+private fun doFirst4(list: List<String>): Int {
+    val distances = parseDistances(list)
+    val routes = permute(getRoutes(list))
+
+    return routes.minOf {
+        it
+            .zipWithNext()
+            .map { pair -> distances[pair.first]?.get(pair.second) ?: 0 }
             .sum()
     }
 }
