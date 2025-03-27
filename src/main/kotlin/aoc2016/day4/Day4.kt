@@ -7,25 +7,6 @@ data class Room(val name: String, val id: Int, val checksum: String)
 fun main() {
     val day1 = File("src/main/kotlin/aoc2016/day4/input.txt").readLines()
     println(doFirst(day1))
-
-    val letters = "ahoj-jak-se-vede".replace("-", "").groupingBy { it }.eachCount()
-    println(letters)
-
-    val letters2 = letters.toList().sortedByDescending { it.second }.toMap()
-    println(letters2)
-
-    val l = letters.toList().sortedBy { it.second }.toMap()
-    println(l)
-
-    val c = letters.toList().sortedWith(compareBy({it.second}, {it.first})).toMap()
-    println(c)
-
-    val d = letters.toList().sortedWith(compareByDescending<Pair<Char, Int>>{ it.second }.thenBy { it.first }).toMap()
-    println(d)
-
-    val e = letters.toList()
-    val k = e[0]
-    println(e[0].first)
 }
 
 fun doFirst(lines: List<String>): Int {
